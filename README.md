@@ -1,2 +1,2 @@
 # contacts-nav
-a nav compoment for  phone contacts
+a nav compoment for phone contacts
