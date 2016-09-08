@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>TEST CONTACT-NAV</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
+
+    <style>
+        .alpha-nav{
+             position:fixed;right:0%;top:5%;
+             list-style:none;
+             padding-right:5px;
+        }
+       
+        .prompt-box{
+            position:fixed;right:30%;top:20%;
+            width:40px;height:40px;
+            font-size:24px;line-height:40px;text-align:center;
+            color:white;
+            background-color:cornflowerblue;
+            border-radius:50%;
+        }
+    </style>
+</head>
+
+<body ng-app="testnav">
+    <div ng-controller="MainCtrl">
+        <contact-nav delegate-handle="contactsScroll" nav-char-list="navCharArray"></contact-nav>
+    </div>
+    <script>
+            var app = angular.module('testnav', []);
+            app.controller('MainCtrl', ['$scope', function($scope) {
+                $scope.touched = false;
+                $scope.navCharArray=[
+                    {firstChar:"A",id:1},
+                    {firstChar:"B",id:2},
+                    {firstChar:"C",id:3},
+                    {firstChar:"D",id:4},
+                    {firstChar:"E",id:5},
+                    {firstChar:"F",id:6},
+                    {firstChar:"G",id:7},
+                    {firstChar:"H",id:8},
+                    {firstChar:"J",id:9},
+                    {firstChar:"K",id:10},
+                    {firstChar:"L",id:11},
+                    {firstChar:"M",id:12}
+                ];
+            }]).directive("ngTouchstart", function () {
+                return {
+                    controller: function ($scope, $element, $attrs) {
+                        $element.bind('touchstart', onTouchStart);
+                        function onTouchStart(event) {
+                            var method = $element.attr('ng-touchstart');
+                            $scope.$event = event;
+                            $scope.$apply(method);
+                        };
+                    }
+                };
+             }).directive("ngTouchend", function () {
+                 return {
+                    controller: function ($scope, $element, $attrs) {
+                        $element.bind('touchend', onTouchEnd);
+                            
+                        function onTouchEnd(event) {
+                            var method = $element.attr('ng-touchend');
+                            $scope.$event = event;
+                            $scope.$apply(method);
+                        };
+                    }
+                };
+             }).directive("ngTouchmove", function () {
+                return {
+                    controller: function ($scope, $element, $attrs) {
+                         $element.bind('touchstart', onTouchStart);
+                        
+                        function onTouchStart(event) {
+                            event.preventDefault();
+                            $element.bind('touchmove', onTouchMove);
+                            $element.bind('touchend', onTouchEnd);
+                        };
+                            
+                        function onTouchMove(event) {
+                            var method = $element.attr('ng-touchmove');
+                            $scope.$event = event;
+                            $scope.$apply(method);
+                        };
+                            
+                        function onTouchEnd(event) {
+                            event.preventDefault();
+                            $element.unbind('touchmove', onTouchMove);
+                            $element.unbind('touchend', onTouchEnd);
+                        };
+                    }
+                };
+              }).directive('contactNav', [function() {
+                    return {
+                        restrict:"E",
+                        template:'<div class="nav-container">'
+                                +'    <ul class="alpha-nav" '
+                                +'        ng-touchmove="goList($event)" '
+                                +'        ng-touchend="hidePromptBox()" '
+                                +'        ng-touchstart="goListByTouch($event)">'
+                                +'        <li ng-repeat="charobj in navCharList" '
+                                +'              data-id="{{charobj.id}}">{{charobj.firstChar}} '
+                                +'        </li> '
+                                +'        <div class="prompt-box" ng-show="tipObj.isShow">{{tipObj.content}}</div> '
+                                +'    </ul> '
+                                +'</div>',
+                        replace:false,
+                        scope:{navCharList:"=navCharList"},
+                        link:function(scope, element, attrs, controller){
+                            //滚动的指定元素
+                            var DelegateHandle=attrs["DelegateHandle"];
+
+                            //给元素添加一个class，实现固定定位
+                            element.addClass("contacts-nav");
+
+                            scope.tipObj={};
+                            /*
+                            * 功能：用户单独点击
+                            * 参数：@event {object} [touch事件对象]
+                            * */
+                            scope.goListByTouch=function(event){
+                               var nodeName = event.target.nodeName.toUpperCase();
+                                if(nodeName !=="LI"){
+                                    return;
+                                }
+                                //得到事件源对象
+                                var target=angular.element(event.target);
+                               
+                                //得到对象首字母
+                                var firstCode=target.html();
+                                //得到a标签的id
+                                var id=target.attr("data-id");
+                                scope.tipObj={"isShow":true,"content":firstCode};
+                                console.log('Code:'+firstCode);
+                                return;
+                            };
+
+                            /*
+                            * 功能：隐藏tooltip
+                            * 参数：@event{object}[release事件对象]
+                            * */
+                            scope.hidePromptBox=function(event){
+                                scope.tipObj={"isShow":false};
+                            };
+
+                            /*
+                            * 功能：用户拖动逻辑处理
+                            * 参数：@event {object} [drag事件对象]
+                            * */
+                            scope.goList=function(event){
+                                var nodeName = event.target.nodeName.toUpperCase();
+                                if(nodeName !=="LI"){
+                                    return;
+                                }
+                                // 根据坐标来获取元素！
+                                var ttt = document.elementFromPoint(
+                                    event.changedTouches[0].pageX,
+                                    event.changedTouches[0].pageY
+                                );
+                                nodeName = ttt? ttt.nodeName.toUpperCase():"";
+                                if(nodeName !=="LI"){
+                                    return;
+                                }
+                                //得到事件源对象 event.changedTouches[0].target
+                                var target=angular.element(ttt);
+                                // 获取导航字母
+                                var firstCode = target.html().trim();
+                                // 得到需要寻找到的a标签的id
+                                var id=target.attr("data-id");
+                                //显示提示框
+                                scope.tipObj={"isShow":true,"content":firstCode};
+                                return ;
+                            };
+                    }
+                };
+            }]);
+        </script>
+</body>
+
+</html>
