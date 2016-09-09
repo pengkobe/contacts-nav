@@ -7,12 +7,11 @@
      padding-left: 5px;
      background: #ddd;
  }
- 
  .alpha-nav > li {
      line-height: 1.2;
  }
- 
  .prompt-box {
+     display: none;
      position: fixed;
      right: 30%;
      top: 20%;
@@ -25,7 +24,6 @@
      background-color: cornflowerblue;
      border-radius: 50%;
  }
- 
  .contact-container {
      height: 450px;
      overflow: scroll;

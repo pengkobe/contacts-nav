@@ -1,0 +1,99 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>contacts-nav demo</title>
+    <meta name="description" content="contacts-nav">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="./normalize.css">
+    <link rel="stylesheet" href="./style.css">
+
+    <script src="http://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. 
+            Please <a href="http://browsehappy.com/">upgrade your browser</a> 
+            to improve your experience.</p>
+    <![endif]-->
+    <div id="my_contacts">
+        <div class="contact-container contactsScroll">
+            <ul class="friends_ul">
+            </ul>
+        </div>
+        <div class="nav-container">
+            <ul class="alpha-nav">
+            </ul>
+        </div>
+        <div class="prompt-box">
+        </div>
+    </div>
+    <script src="./src.js"></script>
+
+    <script>
+        // 测试好友列表
+        var friendList = [
+            { firstChar: "A", id: 1, name: "安以轩" },
+            { firstChar: "A", name: "安以轩2" },
+            { firstChar: "B", id: 2, name: "白百何" },
+            { firstChar: "B", name: "白百何2" },
+            { firstChar: "B", name: "白百何3" },
+            { firstChar: "B", name: "白百何4" },
+            { firstChar: "C", id: 3, name: "陈真" },
+            { firstChar: "D", id: 4, name: "斗鱼" },
+            { firstChar: "E", id: 5, name: "饿了么" },
+            { firstChar: "F", id: 6, name: "富士康" },
+            { firstChar: "G", id: 7, name: "咯咯" },
+            { firstChar: "H", id: 8, name: "哈哈" },
+            { firstChar: "J", id: 9, name: "纪小南" },
+            { firstChar: "K", id: 10, name: "卡卡" },
+            { firstChar: "L", id: 11, name: "楼萱" },
+            { firstChar: "M", id: 12, name: "妹妹" },
+            { firstChar: "N", id: 13, name: "牛人" },
+            { firstChar: "O", id: 14, name: "欧派" },
+            { firstChar: "P", id: 15, name: "彭志向" },
+            { firstChar: "Q", id: 16, name: "蛐蛐" },
+            { firstChar: "R", id: 17, name: "蓉儿" },
+            { firstChar: "S", id: 18, name: "傻哥" },
+            { firstChar: "T", id: 19, name: "腾格尔" },
+            { firstChar: "U", id: 21, name: "vsir" },
+            { firstChar: "V", id: 22, name: "谢尔康" },
+            { firstChar: "W", id: 23, name: "悠悠" },
+        ];
+        // 测试导航字符
+        var navCharArray = [
+            { firstChar: "A", id: 1 },
+            { firstChar: "B", id: 2 },
+            { firstChar: "C", id: 3 },
+            { firstChar: "D", id: 4 },
+            { firstChar: "E", id: 5 },
+            { firstChar: "F", id: 6 },
+            { firstChar: "G", id: 7 },
+            { firstChar: "H", id: 8 },
+            { firstChar: "J", id: 9 },
+            { firstChar: "K", id: 10 },
+            { firstChar: "L", id: 11 },
+            { firstChar: "M", id: 12 },
+            { firstChar: "N", id: 13 },
+            { firstChar: "O", id: 14 },
+            { firstChar: "P", id: 15 },
+            { firstChar: "Q", id: 16 },
+            { firstChar: "R", id: 17 },
+            { firstChar: "S", id: 18 },
+            { firstChar: "T", id: 19 },
+            { firstChar: "V", id: 21 },
+            { firstChar: "X", id: 22 },
+            { firstChar: "Y", id: 23 },
+        ];
+        new ContactNav().init("my_contacts", { friendList: friendList, navCharArray: navCharArray });
+    </script>
+</body>
+
+</html>
