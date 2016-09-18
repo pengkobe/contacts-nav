@@ -1,3 +1,4 @@
+'use strict';
 /*!
  * contacts-nav - a nav compoment for phone contacts
  * https://github.com/pengkobe/contacts-nav
@@ -5,13 +6,11 @@
  */
 
 ; (function () {
-    'use strict';
-
     function ContactNav() { }
     /**
-        * 初始化
-        * @selector {String}   [dom ID]
-        * @options  {Object}   [配置对象]
+    * 初始化
+    * @selector {String}   [dom ID]
+    * @options  {Object}   [配置对象]
     */
     ContactNav.prototype.init = function (selector, options) {
         var _default = {
@@ -28,8 +27,8 @@
         var contactHtml = '';
         var navHtml = '';
         var that = this;
-        var friendList= opts.friendList;
-        var navCharArray= opts.navCharArray;
+        var friendList = opts.friendList;
+        var navCharArray = opts.navCharArray;
         for (var i = 0; i < friendList.length; i++) {
             contactHtml += '<li id="_' + friendList[i].id + '"> ' + friendList[i].name + '</li>';
         }
@@ -68,6 +67,7 @@
                 event.changedTouches[0].pageY
             );
             nodeName = ttt ? ttt.nodeName.toUpperCase() : "";
+
             if (nodeName !== "LI") {
                 return;
             }
@@ -78,15 +78,15 @@
             // 导航id
             var id = target.attr("data-id");
             // 提示框
-             $(".prompt-box").show().html(firstCode);
-             that.scrollCharToTop(id, selector);
+            $(".prompt-box").show().html(firstCode);
+            that.scrollCharToTop(id, selector);
         });
     }
 
     /*
-        * 通讯录滚动逻辑
-        * @param {object} id [首字母元素ID]
-        * @param {object} selector [容器对象]
+    * 通讯录滚动逻辑
+    * @param {object} id [首字母元素ID]
+    * @param {object} selector [容器对象]
     **/
     ContactNav.prototype.scrollCharToTop = function (id, selector) {
         var charPos = $("#_" + id);

@@ -7,10 +7,8 @@
     <title>contacts-nav demo</title>
     <meta name="description" content="contacts-nav">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
-
     <link rel="stylesheet" href="./normalize.css">
     <link rel="stylesheet" href="./style.css">
 
@@ -35,8 +33,8 @@
         <div class="prompt-box">
         </div>
     </div>
-    <script src="./src.js"></script>
 
+    <script src="./src.js"></script>
     <script>
         // 测试好友列表
         var friendList = [
@@ -92,7 +90,12 @@
             { firstChar: "X", id: 22 },
             { firstChar: "Y", id: 23 },
         ];
-        new ContactNav().init("my_contacts", { friendList: friendList, navCharArray: navCharArray });
+
+        // 初始化
+        new ContactNav().init("my_contacts", { 
+            friendList: friendList, 
+            navCharArray: navCharArray 
+        });
     </script>
 </body>
 

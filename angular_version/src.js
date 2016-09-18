@@ -1,3 +1,9 @@
+/*!
+ * contacts-nav - a nav compoment for phone contacts
+ * https://github.com/pengkobe/contacts-nav
+ * Released under the MIT Licenses
+ */
+
 var app = angular.module('testnav', []);
 app.controller('MainCtrl', ['$scope', function ($scope) {
     // 测试好友列表
@@ -147,9 +153,9 @@ app.controller('MainCtrl', ['$scope', function ($scope) {
                 if (nodeName !== "LI") {
                     return;
                 }
-                //事件源
+                // 事件源
                 var target = angular.element(event.target);
-                //首字母
+                // 首字母
                 var firstCode = target.html();
                 // 导航事件回调
                 var aaaa = scope.charClickCb()(firstCode);
