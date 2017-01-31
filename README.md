@@ -1,8 +1,8 @@
-# contacts-nav
+# Contacts Nav
 a nav compoment for phone contacts
 
-### demo gif
+## Demo gif
 ![contacts-demo](./demo.gif)
 
-### license
-MIT
+## License
+MIT@yipeng.info
